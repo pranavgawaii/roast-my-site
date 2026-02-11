@@ -129,7 +129,7 @@ function parseImageAltCount(markdown: string) {
 
 async function checkLinkStatus(url: string) {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 6500);
+  const timeout = setTimeout(() => controller.abort(), 3000);
   try {
     const response = await fetch(url, {
       method: "HEAD",
@@ -287,7 +287,7 @@ export async function analyzeContentWithFirecrawl(urlInput: string): Promise<Fir
 
   const started = Date.now();
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 22000);
+  const timeout = setTimeout(() => controller.abort(), 12000);
 
   try {
     const response = await fetch("https://api.firecrawl.dev/v1/scrape", {
@@ -313,7 +313,7 @@ export async function analyzeContentWithFirecrawl(urlInput: string): Promise<Fir
     const payload = (await response.json()) as FirecrawlScrapeResponse;
     const fetchTimeMs = Date.now() - started;
     const parsed = parseFirecrawlPayload(url, payload, fetchTimeMs);
-    const sampledLinks = parsed.links.slice(0, 12);
+    const sampledLinks = parsed.links.slice(0, 6);
     const checked = await Promise.all(sampledLinks.map((link) => checkLinkStatus(link)));
     const brokenIndices = checked
       .map((status, index) => (status >= 400 ? index : -1))

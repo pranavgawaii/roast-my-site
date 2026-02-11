@@ -9,9 +9,19 @@ import { consumeDailyUsage, currentIstDateKey } from "./_rateLimit.js";
 import { appendUserHistory } from "./_history.js";
 import { analyzeContentWithFirecrawl, type FirecrawlSignals } from "./firecrawl.js";
 
+export const config = {
+  maxDuration: 60
+};
+
 const ROAST_V11_ENABLED = process.env.ROAST_V11_ENABLED !== "0";
 const PRO_TIER_ENABLED = process.env.PRO_TIER_ENABLED !== "0";
 const OPENERS_TTL_SECONDS = 60 * 60 * 24 * 7;
+const FUNCTION_TARGET_BUDGET_MS = 27_000;
+const ANALYZE_TIMEOUT_MS = 12_000;
+const SCREENSHOT_TIMEOUT_MS = 13_000;
+const FIRECRAWL_TIMEOUT_MS = 12_000;
+const GROQ_TIMEOUT_MS = 9_000;
+const POST_RESPONSE_RESERVE_MS = 1_800;
 
 const ROAST_SYSTEM_PROMPT = `You are RoastMySite AI.
 You create brutally funny but constructive website roasts.
@@ -181,6 +191,32 @@ async function incrementCounter(name: string, amount = 1) {
 
 function clamp(value: number, min: number, max: number) {
   return Math.max(min, Math.min(max, value));
+}
+
+function timeLeft(startedAt: number) {
+  return FUNCTION_TARGET_BUDGET_MS - (Date.now() - startedAt);
+}
+
+function boundedTimeout(startedAt: number, desiredMs: number, minMs = 2_000) {
+  const available = Math.max(minMs, timeLeft(startedAt) - POST_RESPONSE_RESERVE_MS);
+  return clamp(Math.min(desiredMs, available), minMs, desiredMs);
+}
+
+async function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise<T> {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    timeoutId = setTimeout(() => {
+      reject(new Error(`${label} timed out after ${ms}ms`));
+    }, ms);
+  });
+
+  try {
+    return await Promise.race([promise, timeoutPromise]);
+  } finally {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+  }
 }
 
 function getErrorMessage(caught: unknown) {
@@ -920,7 +956,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let firecrawlCalls = 0;
     const groqCalls = process.env.GROQ_API_KEY && ROAST_V11_ENABLED ? 1 : 0;
 
-    await incrementCounter("api:roast");
+    void incrementCounter("api:roast");
     let analysis: {
       metrics: RoastMetrics;
       metricsSource: MetricsSource;
@@ -931,13 +967,25 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let contentSignals: FirecrawlSignals | undefined;
 
     if (roastMode === "content") {
-      await incrementCounter("api:firecrawl");
+      void incrementCounter("api:firecrawl");
       firecrawlCalls = 1;
-      await incrementCounter("api:screenshot");
+      void incrementCounter("api:screenshot");
       const [firecrawlResult, analysisResult, screenshotResult] = await Promise.allSettled([
-        analyzeContentWithFirecrawl(url),
-        analyzeWebsite(url),
-        captureWebsiteScreenshot(url)
+        withTimeout(
+          analyzeContentWithFirecrawl(url),
+          boundedTimeout(startedAt, FIRECRAWL_TIMEOUT_MS),
+          "Firecrawl analysis"
+        ),
+        withTimeout(
+          analyzeWebsite(url),
+          boundedTimeout(startedAt, ANALYZE_TIMEOUT_MS),
+          "Performance analysis"
+        ),
+        withTimeout(
+          captureWebsiteScreenshot(url),
+          boundedTimeout(startedAt, SCREENSHOT_TIMEOUT_MS),
+          "Screenshot capture"
+        )
       ]);
 
       if (firecrawlResult.status === "fulfilled") {
@@ -970,10 +1018,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         console.warn("[Roast] Screenshot unavailable:", screenshotCaptureError);
       }
     } else {
-      await incrementCounter("api:screenshot");
+      void incrementCounter("api:screenshot");
       const [analysisResult, screenshotResult] = await Promise.allSettled([
-        analyzeWebsite(url),
-        captureWebsiteScreenshot(url)
+        withTimeout(
+          analyzeWebsite(url),
+          boundedTimeout(startedAt, ANALYZE_TIMEOUT_MS),
+          "Performance analysis"
+        ),
+        withTimeout(
+          captureWebsiteScreenshot(url),
+          boundedTimeout(startedAt, SCREENSHOT_TIMEOUT_MS),
+          "Screenshot capture"
+        )
       ]);
 
       if (analysisResult.status === "rejected") {
@@ -994,17 +1050,43 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
-    const roastResult = await generateRoast({
-      url,
-      screenshot,
-      screenshotCaptureError,
-      metrics: analysis.metrics,
-      metricsSource: analysis.metricsSource,
-      designSignals: analysis.designSignals,
-      styleProfile,
-      roastMode: effectiveRoastMode,
-      contentSignals
-    });
+    let roastResult: {
+      structured: StructuredRoast;
+      roastText: string;
+      regeneratedOpening: boolean;
+    };
+    try {
+      roastResult = await withTimeout(
+        generateRoast({
+          url,
+          screenshot,
+          screenshotCaptureError,
+          metrics: analysis.metrics,
+          metricsSource: analysis.metricsSource,
+          designSignals: analysis.designSignals,
+          styleProfile,
+          roastMode: effectiveRoastMode,
+          contentSignals
+        }),
+        boundedTimeout(startedAt, GROQ_TIMEOUT_MS, 2_500),
+        "Roast generation"
+      );
+    } catch (generationError) {
+      console.warn("[Roast] Generation fallback:", getErrorMessage(generationError));
+      const structured = fallbackStructured({
+        url,
+        metrics: analysis.metrics,
+        styleProfile,
+        designSignals: analysis.designSignals,
+        roastMode: effectiveRoastMode,
+        contentSignals
+      });
+      roastResult = {
+        structured,
+        roastText: composeRoastText(structured),
+        regeneratedOpening: false
+      };
+    }
 
     const scores = calculateScores({
       metrics: analysis.metrics,
@@ -1037,7 +1119,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     };
 
     if (auth.userId) {
-      await appendUserHistory(auth.userId, responsePayload, auth.user?.email);
+      void appendUserHistory(auth.userId, responsePayload, auth.user?.email).catch((historyError) => {
+        console.warn("[Roast] History save failed:", getErrorMessage(historyError));
+      });
     }
 
     const latencyMs = Date.now() - startedAt;

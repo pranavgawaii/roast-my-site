@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { Redis } from "@upstash/redis";
-import { checkReachable, parseAndValidateUrl } from "./_utils.js";
+import { parseAndValidateUrl } from "./_utils.js";
 import { currentIstDateKey } from "./_rateLimit.js";
 
 const PAGE_SPEED_BASE =
@@ -250,7 +250,7 @@ function buildEstimatedMetrics(url: string, signals: DesignSignals): RoastMetric
 
 async function getPageSpeedMetrics(url: string) {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 22000);
+  const timeout = setTimeout(() => controller.abort(), 10000);
 
   try {
     const apiKey = process.env.PAGESPEED_API_KEY?.trim();
@@ -308,7 +308,7 @@ function countMatches(text: string, pattern: RegExp) {
 
 async function checkLinkStatus(href: string) {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 6000);
+  const timeout = setTimeout(() => controller.abort(), 3000);
   try {
     const check = await fetch(href, {
       method: "HEAD",
@@ -324,7 +324,7 @@ async function checkLinkStatus(href: string) {
 async function extractDesignSignals(url: string): Promise<DesignSignals> {
   const warnings: string[] = [];
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 16000);
+  const timeout = setTimeout(() => controller.abort(), 9000);
 
   try {
     const start = Date.now();
@@ -374,7 +374,7 @@ async function extractDesignSignals(url: string): Promise<DesignSignals> {
       })
       .filter((href) => href.startsWith("http://") || href.startsWith("https://"));
 
-    const sampledLinks = Array.from(new Set(linkTargets)).slice(0, 12);
+    const sampledLinks = Array.from(new Set(linkTargets)).slice(0, 6);
     const checks = await Promise.allSettled(sampledLinks.map((href) => checkLinkStatus(href)));
     const brokenLinks = checks.filter((result) => {
       if (result.status === "rejected") {
@@ -445,15 +445,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 export async function analyzeWebsite(url: string) {
   const startedAt = Date.now();
   const normalizedUrl = new URL(url).toString();
-
-  try {
-    await checkReachable(normalizedUrl);
-  } catch {
-    console.warn(`[Analyze] Reachability check failed for ${normalizedUrl}, proceeding anyway.`);
-  }
-
-  const designSignals = await extractDesignSignals(normalizedUrl);
-  const pageSpeedMetrics = await getPageSpeedMetrics(normalizedUrl);
+  const [designSignals, pageSpeedMetrics] = await Promise.all([
+    extractDesignSignals(normalizedUrl),
+    getPageSpeedMetrics(normalizedUrl)
+  ]);
 
   let metricsSource: MetricsSource = "estimated";
   let metrics: RoastMetrics;

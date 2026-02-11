@@ -266,7 +266,7 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="relative overflow-hidden rounded-[34px] border border-white/10 bg-zinc-950/82 px-6 pt-12 pb-20 md:px-10 md:pt-16 md:pb-28 lg:px-14 lg:pt-20 lg:pb-36"
+            className="relative -mt-2 overflow-hidden rounded-[34px] border border-white/10 bg-zinc-950/82 px-6 pt-12 pb-20 md:-mt-3 md:px-10 md:pt-16 md:pb-28 lg:px-14 lg:pt-20 lg:pb-36"
           >
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(620px_circle_at_0%_0%,rgba(255,68,68,0.14),transparent_58%),radial-gradient(760px_circle_at_100%_0%,rgba(255,255,255,0.07),transparent_62%)]" />
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:32px_32px]" />

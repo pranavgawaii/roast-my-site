@@ -4,6 +4,7 @@ import { webcrypto } from "node:crypto";
 const CLERK_API_BASE = "https://api.clerk.com/v1";
 const TOKEN_CLOCK_SKEW_SECONDS = 60;
 const JWKS_TTL_MS = 10 * 60 * 1000;
+const CLERK_FETCH_TIMEOUT_MS = 5_500;
 const DEFAULT_ADMIN_EMAILS = ["pranvgg@gmail", "pranvgg@gmail.com"];
 
 export type UserStatus = "anonymous" | "free" | "waitlist" | "pro";
@@ -78,6 +79,23 @@ export interface ClerkUserSummary {
 }
 
 let jwksCache: { keys: Jwk[]; expiresAt: number } | null = null;
+
+async function fetchWithTimeout(
+  input: string,
+  init: RequestInit,
+  timeoutMs = CLERK_FETCH_TIMEOUT_MS
+) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(input, {
+      ...init,
+      signal: controller.signal
+    });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
 
 function decodeBase64Url(value: string) {
   const normalized = value.replace(/-/g, "+").replace(/_/g, "/");
@@ -166,10 +184,15 @@ async function fetchJwks(secretKey: string, force = false) {
   }
 
   const tryFetch = async (withAuth: boolean) => {
-    const response = await fetch(`${CLERK_API_BASE}/jwks`, {
-      method: "GET",
-      headers: withAuth ? { Authorization: `Bearer ${secretKey}` } : undefined
-    });
+    let response: Response;
+    try {
+      response = await fetchWithTimeout(`${CLERK_API_BASE}/jwks`, {
+        method: "GET",
+        headers: withAuth ? { Authorization: `Bearer ${secretKey}` } : undefined
+      });
+    } catch {
+      return null;
+    }
 
     if (!response.ok) {
       return null;
@@ -259,7 +282,7 @@ async function verifyTokenWithJwks(token: string, secretKey: string) {
 }
 
 async function fetchClerkUser(userId: string, secretKey: string) {
-  const response = await fetch(`${CLERK_API_BASE}/users/${userId}`, {
+  const response = await fetchWithTimeout(`${CLERK_API_BASE}/users/${userId}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${secretKey}`
@@ -311,7 +334,7 @@ export async function listClerkUsers(args?: { limit?: number; maxPages?: number 
     url.searchParams.set("limit", String(pageSize));
     url.searchParams.set("offset", String(offset));
 
-    const response = await fetch(url.toString(), {
+    const response = await fetchWithTimeout(url.toString(), {
       method: "GET",
       headers: {
         Authorization: `Bearer ${secretKey}`
@@ -476,7 +499,7 @@ export async function updateUserPublicMetadata(args: {
     ...args.patch
   };
 
-  const response = await fetch(`${CLERK_API_BASE}/users/${args.userId}/metadata`, {
+  const response = await fetchWithTimeout(`${CLERK_API_BASE}/users/${args.userId}/metadata`, {
     method: "PATCH",
     headers: {
       Authorization: `Bearer ${secretKey}`,

@@ -32,21 +32,55 @@ async function requestJson<T>(
     body?: Record<string, unknown>;
   } = {}
 ) {
-  const response = await fetch(endpoint, {
-    method: options.method || "GET",
-    headers: buildHeaders(options.token),
-    body: options.body ? JSON.stringify(options.body) : undefined
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 36_000);
+
+  let response: Response;
+  try {
+    response = await fetch(endpoint, {
+      method: options.method || "GET",
+      headers: buildHeaders(options.token),
+      body: options.body ? JSON.stringify(options.body) : undefined,
+      signal: controller.signal
+    });
+  } catch (error) {
+    clearTimeout(timeout);
+    const aborted =
+      error instanceof DOMException
+        ? error.name === "AbortError"
+        : String(error).toLowerCase().includes("aborted");
+
+    throw {
+      error: "Request failed",
+      message: aborted
+        ? "The roast request timed out. Please try again."
+        : "Network error. Please check your connection and retry."
+    };
+  } finally {
+    clearTimeout(timeout);
+  }
 
   const contentType = response.headers.get("content-type");
   if (!contentType || !contentType.includes("application/json")) {
     const text = await response.text();
+    const timeoutMessage =
+      response.status === 504
+        ? "Server timed out while generating this roast. Try again or use a lighter page."
+        : null;
+
+    const unavailableMessage =
+      response.status === 502 || response.status === 503
+        ? "Roast service is temporarily unavailable. Please retry in a moment."
+        : null;
+
     throw {
       error: "Invalid Response",
       message:
         response.status === 404
           ? "API endpoint not found. If running locally, use 'npm run dev'."
-          : `Server returned non-JSON response (${response.status}): ${text.slice(0, 120)}...`
+          : timeoutMessage ||
+            unavailableMessage ||
+            `Server returned non-JSON response (${response.status}): ${text.slice(0, 120)}...`
     };
   }
 

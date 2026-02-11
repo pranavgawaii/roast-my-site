@@ -5,7 +5,7 @@ import type { Page } from "puppeteer-core";
 import { parseAndValidateUrl } from "./_utils.js";
 
 export const config = {
-  maxDuration: 30
+  maxDuration: 60
 };
 
 const MAX_SIZE_BYTES = 5 * 1024 * 1024;
@@ -97,8 +97,8 @@ async function takeScreenshotBuffer(url: string) {
 
   try {
     const page = await browser.newPage();
-    page.setDefaultNavigationTimeout(22000);
-    page.setDefaultTimeout(22000);
+    page.setDefaultNavigationTimeout(14000);
+    page.setDefaultTimeout(14000);
     await page.setViewport({ width: 1200, height: 800 });
     await navigateForScreenshot(page, url);
 
@@ -111,7 +111,8 @@ async function takeScreenshotBuffer(url: string) {
     let quality = 80;
     while (quality >= 40) {
       const data = (await page.screenshot({
-        fullPage: true,
+        // Viewport-only capture is faster and aligns with preview-card hero framing.
+        fullPage: false,
         type: "jpeg",
         quality
       })) as Buffer;
@@ -131,7 +132,7 @@ async function navigateForScreenshot(page: Page, url: string) {
   try {
     await page.goto(url, {
       waitUntil: "domcontentloaded",
-      timeout: 22000
+      timeout: 12000
     });
   } catch (caught) {
     const message = caught instanceof Error ? caught.message : String(caught);
@@ -147,7 +148,7 @@ async function navigateForScreenshot(page: Page, url: string) {
   }
 
   try {
-    await page.waitForNetworkIdle({ idleTime: 800, timeout: 4000 });
+    await page.waitForNetworkIdle({ idleTime: 500, timeout: 2000 });
   } catch {
     // Some pages keep long-running requests open; proceed with current DOM.
   }
