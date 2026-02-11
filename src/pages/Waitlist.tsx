@@ -163,7 +163,7 @@ export default function WaitlistPage() {
             ) : null}
 
             {!loading && account?.waitlistStatus === "pending" ? (
-              <div className="mt-4 rounded-xl border border-amber-400/30 bg-amber-400/10 p-4 text-amber-100">
+              <div className="mt-4 rounded-xl border border-ember-400/30 bg-ember-400/10 p-4 text-ember-100">
                 Request submitted. We will review and approve manually.
               </div>
             ) : null}

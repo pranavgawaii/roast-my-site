@@ -38,23 +38,23 @@ const themes: Record<ShareCardTheme, ThemeTokens> = {
     label: "Website Theme",
     isLight: false,
     shellBg: "#0b0f17",
-    shellBorder: "rgba(177,132,53,0.46)",
+    shellBorder: "rgba(255,93,58,0.42)",
     wash:
-      "radial-gradient(760px circle at 12% 4%, rgba(177,132,53,0.24), transparent 57%), radial-gradient(780px circle at 96% 0%, rgba(255,255,255,0.08), transparent 62%)",
+      "radial-gradient(760px circle at 12% 4%, rgba(255,93,58,0.22), transparent 57%), radial-gradient(780px circle at 96% 0%, rgba(255,255,255,0.08), transparent 62%)",
     frameBg: "rgba(16,23,37,0.84)",
-    frameBorder: "rgba(177,132,53,0.32)",
+    frameBorder: "rgba(255,93,58,0.3)",
     panelBg: "rgba(15,22,35,0.84)",
     panelBorder: "rgba(255,255,255,0.14)",
     panelSoftBg: "rgba(12,18,29,0.88)",
     panelSoftBorder: "rgba(255,255,255,0.1)",
-    accent: "#e8c083",
-    accentSoft: "rgba(232,192,131,0.26)",
+    accent: "#ff6a4a",
+    accentSoft: "rgba(255,106,74,0.24)",
     text: "#f8fafc",
     muted: "#d1d5db",
     subtle: "#9ca3af",
-    badgeBg: "rgba(196,157,86,0.24)",
-    badgeBorder: "rgba(196,157,86,0.58)",
-    badgeText: "#fae6bf",
+    badgeBg: "rgba(255,93,58,0.22)",
+    badgeBorder: "rgba(255,93,58,0.58)",
+    badgeText: "#ffd3c8",
     footerBg: "rgba(0,0,0,0.22)",
     footerBorder: "rgba(255,255,255,0.14)",
     shadow: "0 28px 90px rgba(0,0,0,0.45)"
@@ -112,27 +112,27 @@ const themes: Record<ShareCardTheme, ThemeTokens> = {
   ivoryLight: {
     label: "Ivory Light",
     isLight: true,
-    shellBg: "#f7f2e6",
-    shellBorder: "rgba(159,132,87,0.34)",
+    shellBg: "#f9f4f2",
+    shellBorder: "rgba(229,61,24,0.28)",
     wash:
-      "radial-gradient(760px circle at 12% 4%, rgba(210,177,120,0.3), transparent 57%), radial-gradient(780px circle at 96% 0%, rgba(255,255,255,0.68), transparent 62%)",
-    frameBg: "rgba(255,252,245,0.9)",
-    frameBorder: "rgba(159,132,87,0.28)",
-    panelBg: "rgba(255,253,249,0.92)",
-    panelBorder: "rgba(114,89,47,0.2)",
-    panelSoftBg: "rgba(254,250,242,0.95)",
-    panelSoftBorder: "rgba(114,89,47,0.16)",
-    accent: "#8b5e34",
-    accentSoft: "rgba(139,94,52,0.2)",
+      "radial-gradient(760px circle at 12% 4%, rgba(255,98,66,0.28), transparent 57%), radial-gradient(780px circle at 96% 0%, rgba(255,255,255,0.7), transparent 62%)",
+    frameBg: "rgba(255,249,248,0.92)",
+    frameBorder: "rgba(229,61,24,0.22)",
+    panelBg: "rgba(255,252,251,0.94)",
+    panelBorder: "rgba(183,47,19,0.18)",
+    panelSoftBg: "rgba(255,248,246,0.95)",
+    panelSoftBorder: "rgba(183,47,19,0.14)",
+    accent: "#e53d18",
+    accentSoft: "rgba(229,61,24,0.18)",
     text: "#1f2937",
     muted: "#374151",
     subtle: "#6b7280",
-    badgeBg: "rgba(139,94,52,0.16)",
-    badgeBorder: "rgba(139,94,52,0.36)",
-    badgeText: "#7c4a1d",
-    footerBg: "rgba(255,252,245,0.9)",
-    footerBorder: "rgba(114,89,47,0.2)",
-    shadow: "0 22px 70px rgba(107,76,30,0.2)"
+    badgeBg: "rgba(229,61,24,0.14)",
+    badgeBorder: "rgba(229,61,24,0.34)",
+    badgeText: "#b72f13",
+    footerBg: "rgba(255,250,249,0.9)",
+    footerBorder: "rgba(183,47,19,0.16)",
+    shadow: "0 22px 70px rgba(183,47,19,0.16)"
   },
   frostLight: {
     label: "Frost Light",
@@ -180,7 +180,7 @@ function qualityTone(score: number, isLight: boolean) {
     return isLight ? "#047857" : "#34d399";
   }
   if (score >= 65) {
-    return isLight ? "#b45309" : "#f59e0b";
+    return isLight ? "#e53d18" : "#ff6b47";
   }
   return isLight ? "#b91c1c" : "#f87171";
 }

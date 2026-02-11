@@ -40,8 +40,8 @@ body.light {
 
 .light .bg-grid {
   background-image:
-    linear-gradient(rgba(247, 188, 36, 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(247, 188, 36, 0.12) 1px, transparent 1px);
+    linear-gradient(rgba(255, 95, 55, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 95, 55, 0.12) 1px, transparent 1px);
 }
 
 .light .text-white {
@@ -145,16 +145,16 @@ body.light {
 
 .fire-border {
   border-image-source: linear-gradient(120deg,
-      rgba(247, 188, 36, 0.95),
-      rgba(211, 154, 0, 0.72),
-      rgba(255, 220, 120, 0.9));
+      rgba(255, 95, 55, 0.95),
+      rgba(224, 64, 30, 0.72),
+      rgba(255, 132, 96, 0.9));
   border-image-slice: 1;
 }
 
 .bg-grid {
   background-image:
-    linear-gradient(rgba(247, 188, 36, 0.09) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(247, 188, 36, 0.09) 1px, transparent 1px);
+    linear-gradient(rgba(255, 95, 55, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 95, 55, 0.09) 1px, transparent 1px);
   background-size: 42px 42px;
 }
 
@@ -174,7 +174,7 @@ body.light {
   height: 0.9rem;
   border-radius: 9999px;
   background:
-    radial-gradient(circle, rgba(255, 188, 95, 0.42) 0%, rgba(255, 110, 50, 0.2) 55%, transparent 100%);
+    radial-gradient(circle, rgba(255, 104, 74, 0.42) 0%, rgba(229, 61, 24, 0.22) 55%, transparent 100%);
   filter: blur(4px);
   animation: brand-flame-glow 2.8s ease-in-out infinite;
 }

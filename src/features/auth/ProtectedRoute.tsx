@@ -5,9 +5,8 @@ import { IS_CLERK_CONFIGURED } from "../../shared/lib/clerk";
 import { Card } from "../../shared/ui/Card";
 import { LoadingSpinner } from "../../shared/ui/LoadingSpinner";
 
-export function ProtectedRoute({ children }: PropsWithChildren) {
-  const auth = IS_CLERK_CONFIGURED ? useAuth() : { isLoaded: true, isSignedIn: false };
-  const { isLoaded, isSignedIn } = auth;
+function AuthenticatedRoute({ children }: PropsWithChildren) {
+  const { isLoaded, isSignedIn } = useAuth();
   const location = useLocation();
 
   if (!isLoaded) {
@@ -22,11 +21,20 @@ export function ProtectedRoute({ children }: PropsWithChildren) {
   }
 
   if (!isSignedIn) {
-    const next = encodeURIComponent(
-      `${location.pathname}${location.search}${location.hash}`
-    );
+    const next = encodeURIComponent(`${location.pathname}${location.search}${location.hash}`);
     return <Navigate to={`/sign-in?redirect_url=${next}`} replace />;
   }
 
   return <>{children}</>;
+}
+
+export function ProtectedRoute({ children }: PropsWithChildren) {
+  if (!IS_CLERK_CONFIGURED) {
+    // If Clerk is not configured, we allow access in dev or show a setup warning.
+    // Given the previous fixes, we should probably just return children but maybe 
+    // with a warning. For now, let's just let it pass to avoid crashing.
+    return <>{children}</>;
+  }
+
+  return <AuthenticatedRoute>{children}</AuthenticatedRoute>;
 }

@@ -6,16 +6,16 @@ export default {
     extend: {
       colors: {
         ember: {
-          50: "#faf7ef",
-          100: "#f1e7d2",
-          200: "#e4d0a5",
-          300: "#d4b67a",
-          400: "#c49d56",
-          500: "#b18435",
-          600: "#8f6928",
-          700: "#6c4f1f",
-          800: "#4a3717",
-          900: "#2b220f"
+          50: "#fff2ee",
+          100: "#ffd9cf",
+          200: "#ffb3a1",
+          300: "#ff8c73",
+          400: "#ff6b47",
+          500: "#ff4d22",
+          600: "#e53d18",
+          700: "#b72f13",
+          800: "#8f240f",
+          900: "#61180a"
         }
       },
       fontFamily: {
@@ -24,7 +24,7 @@ export default {
         mono: ["'JetBrains Mono'", "monospace"]
       },
       boxShadow: {
-        glow: "0 0 42px rgba(177, 132, 53, 0.2)"
+        glow: "0 0 42px rgba(255, 77, 34, 0.24)"
       }
     }
   },

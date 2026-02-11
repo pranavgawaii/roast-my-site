@@ -282,7 +282,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05, duration: 0.4 }}
-                className="inline-flex items-center gap-2 rounded-full border border-ember-400/35 bg-ember-400/12 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.14em] text-ember-100"
+                className="inline-flex items-center gap-2 rounded-full border border-[#ff6b47]/35 bg-[#ff6b47]/12 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.14em] text-[#ffd9cf]"
               >
                 <Sparkles className="h-3.5 w-3.5" />
                 Premium Roast Reports
@@ -295,7 +295,7 @@ export default function Home() {
                 className="mt-5 font-display text-4xl font-extrabold tracking-tight text-zinc-100 sm:text-5xl lg:text-6xl"
               >
                 Brutal Website Feedback
-                <span className="block text-ember-200">Built For Better Conversions</span>
+                <span className="block text-[#ff8c73]">Built For Better Conversions</span>
               </motion.h1>
 
               <motion.p
@@ -376,7 +376,7 @@ export default function Home() {
             <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/88">
               <div className="flex h-11 items-center gap-2 border-b border-white/10 bg-zinc-900/78 px-4">
                 <span className="h-3 w-3 rounded-full bg-ember-500/75" />
-                <span className="h-3 w-3 rounded-full bg-amber-300/70" />
+                <span className="h-3 w-3 rounded-full bg-ember-300/70" />
                 <span className="h-3 w-3 rounded-full bg-zinc-500/65" />
                 <div className="ml-3 w-full rounded-md border border-zinc-700/70 bg-zinc-950/85 px-2 py-1 text-[11px] text-zinc-500">
                   https://roastmy.site/dashboard

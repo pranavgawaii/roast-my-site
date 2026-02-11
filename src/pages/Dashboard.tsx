@@ -541,7 +541,7 @@ export default function Dashboard() {
                   ) : null}
 
                   {showWaitlistPrompt ? (
-                    <div className="mt-4 rounded-xl border border-amber-300/30 bg-amber-300/10 px-3 py-2.5 text-sm text-amber-100">
+                    <div className="mt-4 rounded-xl border border-ember-300/30 bg-ember-300/10 px-3 py-2.5 text-sm text-ember-100">
                       2/2 used. Join Premium waitlist for unlimited content + design roasts.
                       <Link to="/waitlist" className="ml-2 font-semibold underline underline-offset-4">
                         Join waitlist

@@ -25,14 +25,14 @@ export function BrandLogo({ className, size = "md" }: BrandLogoProps) {
     <Link
       to="/"
       className={cn(
-        "inline-flex items-center gap-2 overflow-visible font-display font-bold tracking-tight leading-none text-white transition-colors hover:text-ember-400",
+        "inline-flex items-center gap-2 overflow-visible font-display font-bold tracking-tight leading-none text-white transition-colors hover:text-[#ff8c73]",
         className
       )}
       aria-label="RoastMySite home"
     >
       <span className="relative inline-flex h-6 w-6 flex-none items-center justify-center overflow-visible">
         <span className="brand-flame-glow" aria-hidden />
-        <Flame className={cn("brand-flame relative z-10 overflow-visible text-ember-500", sizeMap[size].icon)} />
+        <Flame className={cn("brand-flame relative z-10 overflow-visible text-[#ff4d22]", sizeMap[size].icon)} />
       </span>
       <span className={cn(sizeMap[size].text)}>RoastMySite</span>
     </Link>

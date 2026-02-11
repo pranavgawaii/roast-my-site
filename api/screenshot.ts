@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { existsSync } from "node:fs";
+import { existsSync, rmSync } from "node:fs";
 import puppeteer from "puppeteer-core";
 import type { Page } from "puppeteer-core";
 import { parseAndValidateUrl } from "./_utils.js";
@@ -15,6 +15,31 @@ const LOCAL_CHROME_PATHS = [
   "/usr/bin/chromium-browser",
   "/usr/bin/chromium"
 ];
+
+function resolveLambdaRuntimeTag() {
+  const major = Number(process.versions.node.split(".")[0] || "20");
+  if (major >= 22) {
+    return "nodejs22.x";
+  }
+  if (major >= 20) {
+    return "nodejs20.x";
+  }
+  return "nodejs18.x";
+}
+
+function resolveLambdaLibFile() {
+  const major = Number(process.versions.node.split(".")[0] || "20");
+  if (major >= 20) {
+    return "/tmp/al2023/lib/libnss3.so";
+  }
+  return "/tmp/al2/lib/libnss3.so";
+}
+
+function prepareVercelChromiumRuntime() {
+  const runtimeTag = resolveLambdaRuntimeTag();
+  process.env.AWS_LAMBDA_JS_RUNTIME ??= runtimeTag;
+  process.env.AWS_EXECUTION_ENV ??= `AWS_Lambda_${runtimeTag}`;
+}
 
 function allowRedirect(originalUrl: string, finalUrl: string) {
   const originalHost = new URL(originalUrl).hostname.replace(/^www\./, "");
@@ -34,7 +59,13 @@ async function takeScreenshotBuffer(url: string) {
   let viewport = { width: 1200, height: 800 };
 
   if (isVercel) {
+    prepareVercelChromiumRuntime();
     const chromium = (await import("@sparticuz/chromium")).default;
+    const lambdaLibFile = resolveLambdaLibFile();
+    if (!existsSync(lambdaLibFile) && existsSync("/tmp/chromium")) {
+      // Force a clean extract when a stale binary exists without required shared libs.
+      rmSync("/tmp/chromium", { force: true });
+    }
     executablePath = await chromium.executablePath();
     args = chromium.args;
     const defaultViewport = chromium.defaultViewport;
@@ -61,7 +92,7 @@ async function takeScreenshotBuffer(url: string) {
     args,
     defaultViewport: viewport,
     executablePath,
-    headless: true
+    headless: isVercel ? "shell" : true
   });
 
   try {

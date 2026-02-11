@@ -52,7 +52,7 @@ const shareThemeOptions: Array<{
   {
     value: "websiteDark",
     label: "Website Theme",
-    swatch: "linear-gradient(135deg, #b18435 0%, #0b0f17 62%)"
+    swatch: "linear-gradient(135deg, #ff5b33 0%, #0b0f17 62%)"
   },
   {
     value: "noirDark",
@@ -186,8 +186,8 @@ export function RoastResults({
       </Card>
 
       {freeLimitReached ? (
-        <Card className="flex flex-wrap items-center justify-between gap-3 border-amber-300/35 bg-amber-300/10">
-          <p className="text-sm text-amber-100">
+        <Card className="flex flex-wrap items-center justify-between gap-3 border-ember-300/35 bg-ember-300/10">
+          <p className="text-sm text-ember-100">
             2/2 used for today. Join Pro waitlist for unlimited roasts.
           </p>
           <Button onClick={onJoinWaitlist}>Join Pro Waitlist</Button>
@@ -195,8 +195,8 @@ export function RoastResults({
       ) : null}
 
       {waitlistPending ? (
-        <Card className="border-amber-300/35 bg-amber-300/10">
-          <p className="text-sm text-amber-100">
+        <Card className="border-ember-300/35 bg-ember-300/10">
+          <p className="text-sm text-ember-100">
             Your Pro request is pending review. You will unlock unlimited roasts after approval.
           </p>
         </Card>

@@ -15,7 +15,7 @@ export function AuthFrame({
 }: PropsWithChildren<AuthFrameProps>) {
   return (
     <div className="relative min-h-screen overflow-hidden px-4 pb-7 pt-3 md:px-8 md:pt-5">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_circle_at_18%_8%,rgba(177,132,53,0.16),transparent_45%),radial-gradient(700px_circle_at_82%_0%,rgba(255,255,255,0.07),transparent_50%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_circle_at_18%_8%,rgba(255,92,58,0.16),transparent_45%),radial-gradient(700px_circle_at_82%_0%,rgba(255,255,255,0.07),transparent_50%)]" />
 
       <header className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between rounded-2xl border border-white/10 bg-zinc-950/90 px-4 py-3 md:px-5">
         <BrandLogo />
