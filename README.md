@@ -68,13 +68,7 @@ flowchart LR
 
 ```text
 roastmysite/
-├── src/
-│   ├── pages/            # Route-level pages (home, dashboard, auth, results)
-│   ├── features/         # Domain modules (auth, landing, roast)
-│   ├── shared/           # Reusable ui, lib helpers, shared types
-│   ├── config/           # Client-side content/config (launch messaging)
-│   ├── App.tsx
-│   └── main.tsx
+├── src/                  # React app (pages, components, types, client libs)
 ├── api/                  # Vercel serverless functions
 ├── docs/                 # Product, launch, workflow, QA docs
 ├── public/               # Static assets (og-image, favicon)
@@ -104,7 +98,7 @@ cp .env.example .env
 |---|---|---|
 | `VITE_APP_URL` | Yes | Frontend base URL for local app |
 | `VITE_CLERK_PUBLISHABLE_KEY` | Yes | Clerk publishable key for React client |
-| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Yes | Compatibility key used by UI libs |
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Optional | Not used by Vite client; keep only for external Next.js surfaces |
 | `CLERK_SECRET_KEY` | Yes | Server-side token verification + metadata updates |
 | `CLERK_JWT_ISSUER` | Optional | Strict issuer validation for Clerk JWT |
 | `ADMIN_EMAILS` | Optional | Comma-separated admin emails |
@@ -257,3 +251,11 @@ Deploy checklist:
 ## License
 
 Private project. All rights reserved.
+
+<div align="center">
+
+**Made with ❤️ By Pranav Gawai**
+
+⭐ Star this repo if you find it helpful!
+
+</div>

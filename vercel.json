@@ -1,4 +1,10 @@
 {
+  "rewrites": [
+    {
+      "source": "/((?!api/|assets/|.*\\..*).*)",
+      "destination": "/"
+    }
+  ],
   "functions": {
     "api/**/*.ts": {
       "memory": 1024,
