@@ -1,6 +1,6 @@
 export const clerkAppearance = {
   variables: {
-    colorPrimary: "#ff4d22",
+    colorPrimary: "#ff3b3b",
     colorBackground: "transparent",
     colorText: "#f4f4f5",
     colorTextSecondary: "#a1a1aa",
@@ -27,9 +27,9 @@ export const clerkAppearance = {
     formFieldRow: "!gap-3",
     formFieldLabel: "!text-zinc-100 !text-sm !font-medium",
     formFieldInput:
-      "!h-12 !rounded-xl !border !border-zinc-600 !bg-zinc-900/86 !px-4 !text-zinc-100 placeholder:!text-zinc-500 focus:!border-[#ff4d22] focus:!ring-2 focus:!ring-[#ff4d22]/25",
+      "!h-12 !rounded-xl !border !border-zinc-600 !bg-zinc-900/86 !px-4 !text-zinc-100 placeholder:!text-zinc-500 focus:!border-[#ff3b3b] focus:!ring-2 focus:!ring-[#ff3b3b]/25",
     formButtonPrimary:
-      "!mt-1 !h-12 !rounded-xl !bg-[#ff4d22] hover:!bg-[#ff5a2f] !text-black !font-bold !shadow-[0_10px_24px_rgba(255,77,34,0.28)]",
+      "!mt-1 !h-12 !rounded-xl !bg-[#ff3b3b] hover:!bg-[#ff5252] !text-black !font-bold !shadow-[0_10px_24px_rgba(255,59,59,0.28)]",
     formFieldSuccessText: "!text-zinc-300",
     formFieldErrorText: "!text-red-300",
     otpCodeFieldInput:
@@ -37,8 +37,8 @@ export const clerkAppearance = {
     alert: "!rounded-xl !border !border-zinc-700 !bg-zinc-900/80",
     alertText: "!text-zinc-200",
     identityPreviewText: "!text-zinc-300",
-    identityPreviewEditButton: "!text-[#ff8a6e] hover:!text-[#ffd9cf]",
-    formResendCodeLink: "!text-[#ff8a6e] hover:!text-[#ffd9cf]",
+    identityPreviewEditButton: "!text-[#ff8f8f] hover:!text-[#ffd0d0]",
+    formResendCodeLink: "!text-[#ff8f8f] hover:!text-[#ffd0d0]",
     footer: "!hidden",
     footerAction: "!hidden",
     footerActionText: "!hidden",

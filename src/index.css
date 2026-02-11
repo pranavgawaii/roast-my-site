@@ -40,8 +40,8 @@ body.light {
 
 .light .bg-grid {
   background-image:
-    linear-gradient(rgba(255, 95, 55, 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 95, 55, 0.12) 1px, transparent 1px);
+    linear-gradient(rgba(255, 68, 68, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 68, 68, 0.12) 1px, transparent 1px);
 }
 
 .light .text-white {
@@ -145,16 +145,16 @@ body.light {
 
 .fire-border {
   border-image-source: linear-gradient(120deg,
-      rgba(255, 95, 55, 0.95),
-      rgba(224, 64, 30, 0.72),
-      rgba(255, 132, 96, 0.9));
+      rgba(255, 68, 68, 0.95),
+      rgba(224, 44, 44, 0.72),
+      rgba(255, 104, 104, 0.9));
   border-image-slice: 1;
 }
 
 .bg-grid {
   background-image:
-    linear-gradient(rgba(255, 95, 55, 0.09) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 95, 55, 0.09) 1px, transparent 1px);
+    linear-gradient(rgba(255, 68, 68, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 68, 68, 0.09) 1px, transparent 1px);
   background-size: 42px 42px;
 }
 
@@ -164,7 +164,7 @@ body.light {
 
 .brand-flame {
   transform-origin: 50% 85%;
-  filter: drop-shadow(0 0 8px rgba(255, 120, 40, 0.45));
+  filter: drop-shadow(0 0 8px rgba(255, 68, 68, 0.45));
   animation: brand-flame-pulse 2.6s ease-in-out infinite;
 }
 
@@ -174,7 +174,7 @@ body.light {
   height: 0.9rem;
   border-radius: 9999px;
   background:
-    radial-gradient(circle, rgba(255, 104, 74, 0.42) 0%, rgba(229, 61, 24, 0.22) 55%, transparent 100%);
+    radial-gradient(circle, rgba(255, 97, 97, 0.42) 0%, rgba(224, 44, 44, 0.22) 55%, transparent 100%);
   filter: blur(4px);
   animation: brand-flame-glow 2.8s ease-in-out infinite;
 }
@@ -228,15 +228,15 @@ body.light {
 @keyframes brand-flame-pulse {
   0% {
     transform: rotate(-4deg) scale(0.98);
-    filter: drop-shadow(0 0 7px rgba(255, 128, 58, 0.45));
+    filter: drop-shadow(0 0 7px rgba(255, 86, 86, 0.45));
   }
   50% {
     transform: rotate(4deg) scale(1.08);
-    filter: drop-shadow(0 0 12px rgba(255, 147, 73, 0.62));
+    filter: drop-shadow(0 0 12px rgba(255, 99, 99, 0.62));
   }
   100% {
     transform: rotate(-3deg) scale(1.01);
-    filter: drop-shadow(0 0 8px rgba(255, 120, 42, 0.5));
+    filter: drop-shadow(0 0 8px rgba(255, 78, 78, 0.5));
   }
 }
 

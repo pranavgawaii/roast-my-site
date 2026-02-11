@@ -52,7 +52,7 @@ const shareThemeOptions: Array<{
   {
     value: "websiteDark",
     label: "Website Theme",
-    swatch: "linear-gradient(135deg, #ff5b33 0%, #0b0f17 62%)"
+    swatch: "linear-gradient(135deg, #ff3b3b 0%, #0b0f17 62%)"
   },
   {
     value: "noirDark",
@@ -66,8 +66,8 @@ const shareThemeOptions: Array<{
   },
   {
     value: "ivoryLight",
-    label: "Ivory Light",
-    swatch: "linear-gradient(135deg, #faf7ef 0%, #e8dcc3 62%)"
+    label: "Rose Light",
+    swatch: "linear-gradient(135deg, #fff1f1 0%, #ffd6d6 62%)"
   },
   {
     value: "frostLight",

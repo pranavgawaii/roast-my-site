@@ -201,7 +201,7 @@ export default function Home() {
                   </Link>
                   <Link
                     to="/sign-up"
-                    className="inline-flex rounded-lg bg-[#ff4d22] px-2.5 py-1.5 text-[11px] font-bold text-black transition hover:bg-[#ff5a2f] sm:px-4 sm:py-2 sm:text-xs"
+                    className="inline-flex rounded-lg bg-[#ff3b3b] px-2.5 py-1.5 text-[11px] font-bold text-black transition hover:bg-[#ff5252] sm:px-4 sm:py-2 sm:text-xs"
                   >
                     Get Started
                   </Link>
@@ -245,7 +245,7 @@ export default function Home() {
                 <div className="flex items-center gap-2">
                   <Link
                     to={launchMessaging.waitlistCta.url}
-                    className="inline-flex rounded-lg bg-[#ff4d22] px-3 py-2 text-xs font-bold text-black transition hover:bg-[#ff5a2f]"
+                    className="inline-flex rounded-lg bg-[#ff3b3b] px-3 py-2 text-xs font-bold text-black transition hover:bg-[#ff5252]"
                   >
                     {launchMessaging.waitlistCta.label}
                   </Link>
@@ -268,7 +268,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             className="relative overflow-hidden rounded-[34px] border border-white/10 bg-zinc-950/82 px-6 pt-12 pb-20 md:px-10 md:pt-16 md:pb-28 lg:px-14 lg:pt-20 lg:pb-36"
           >
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(620px_circle_at_0%_0%,rgba(255,111,52,0.14),transparent_58%),radial-gradient(760px_circle_at_100%_0%,rgba(255,255,255,0.07),transparent_62%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(620px_circle_at_0%_0%,rgba(255,68,68,0.14),transparent_58%),radial-gradient(760px_circle_at_100%_0%,rgba(255,255,255,0.07),transparent_62%)]" />
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:32px_32px]" />
             <motion.div
               aria-hidden
@@ -282,7 +282,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05, duration: 0.4 }}
-                className="inline-flex items-center gap-2 rounded-full border border-[#ff6b47]/35 bg-[#ff6b47]/12 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.14em] text-[#ffd9cf]"
+                className="inline-flex items-center gap-2 rounded-full border border-[#ff5656]/35 bg-[#ff5656]/12 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.14em] text-[#ffd0d0]"
               >
                 <Sparkles className="h-3.5 w-3.5" />
                 Premium Roast Reports
@@ -295,7 +295,7 @@ export default function Home() {
                 className="mt-5 font-display text-4xl font-extrabold tracking-tight text-zinc-100 sm:text-5xl lg:text-6xl"
               >
                 Brutal Website Feedback
-                <span className="block text-[#ff8c73]">Built For Better Conversions</span>
+                <span className="block text-[#ff7373]">Built For Better Conversions</span>
               </motion.h1>
 
               <motion.p
@@ -370,7 +370,7 @@ export default function Home() {
             transition={{ duration: 0.45 }}
             className="relative overflow-hidden rounded-[30px] border border-white/10 bg-zinc-950/82 p-3 md:p-4"
           >
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(620px_circle_at_0%_0%,rgba(255,111,52,0.12),transparent_60%),radial-gradient(760px_circle_at_100%_0%,rgba(255,255,255,0.05),transparent_64%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(620px_circle_at_0%_0%,rgba(255,68,68,0.12),transparent_60%),radial-gradient(760px_circle_at_100%_0%,rgba(255,255,255,0.05),transparent_64%)]" />
             <div className="pointer-events-none absolute right-12 top-10 h-28 w-28 rounded-full bg-ember-300/10 blur-3xl" />
 
             <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/88">
@@ -563,7 +563,7 @@ export default function Home() {
 
         <section id="pricing" className="mx-auto mt-10 max-w-6xl px-4 pb-20 pt-4 md:mt-14 md:px-8 md:pt-8">
           <div className="relative overflow-hidden rounded-[30px] border border-white/10 bg-zinc-950/78 p-6 md:p-10">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(580px_circle_at_0%_0%,rgba(255,111,52,0.12),transparent_58%),radial-gradient(760px_circle_at_100%_0%,rgba(255,255,255,0.06),transparent_62%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(580px_circle_at_0%_0%,rgba(255,68,68,0.12),transparent_58%),radial-gradient(760px_circle_at_100%_0%,rgba(255,255,255,0.06),transparent_62%)]" />
             <div className="text-center">
               <h2 className="font-display text-4xl font-bold text-white md:text-5xl">
                 Pricing that starts free

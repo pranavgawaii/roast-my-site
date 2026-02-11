@@ -180,7 +180,7 @@ function qualityTone(score: number, isLight: boolean) {
     return isLight ? "#047857" : "#34d399";
   }
   if (score >= 65) {
-    return isLight ? "#e53d18" : "#ff6b47";
+    return isLight ? "#d92626" : "#ff5c5c";
   }
   return isLight ? "#b91c1c" : "#f87171";
 }
