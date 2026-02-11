@@ -163,7 +163,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden pb-8">
+    <div className="min-h-screen overflow-x-hidden pb-8" data-accent="red-v2">
       <header className="sticky top-0 z-50 px-4 pt-4 md:px-8">
         <div className="mx-auto max-w-7xl overflow-visible rounded-2xl border border-zinc-800 bg-zinc-950/95 px-4 py-3.5 md:px-6">
           <div className="flex items-center justify-between gap-3">
