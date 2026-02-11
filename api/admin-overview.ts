@@ -5,8 +5,8 @@ import {
   isAdminAuth,
   listClerkUsers,
   resolveAuthContext
-} from "./_auth";
-import { currentIstDateKey, getRedis } from "./_rateLimit";
+} from "./_auth.js";
+import { currentIstDateKey, getRedis } from "./_rateLimit.js";
 
 function parseLimit(raw: unknown, fallback = 100, max = 200) {
   const value = Array.isArray(raw) ? raw[0] : raw;
@@ -63,10 +63,10 @@ async function readSupabaseDailyUsage() {
   if (!config) {
     return null as
       | {
-          totalRoasts: number;
-          groqCalls: number;
-          firecrawlCalls: number;
-        }
+        totalRoasts: number;
+        groqCalls: number;
+        firecrawlCalls: number;
+      }
       | null;
   }
 
@@ -187,10 +187,10 @@ async function readSupabaseTotalUsage() {
   if (!config) {
     return null as
       | {
-          totalRoasts: number;
-          groqCalls: number;
-          firecrawlCalls: number;
-        }
+        totalRoasts: number;
+        groqCalls: number;
+        firecrawlCalls: number;
+      }
       | null;
   }
 

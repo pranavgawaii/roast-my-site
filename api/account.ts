@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { isAdminEmail, resolveAuthContext } from "./_auth";
-import { getUsageSnapshot } from "./_rateLimit";
+import { isAdminEmail, resolveAuthContext } from "./_auth.js";
+import { getUsageSnapshot } from "./_rateLimit.js";
 
 const PRO_TIER_ENABLED = process.env.PRO_TIER_ENABLED !== "0";
 

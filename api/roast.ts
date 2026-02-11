@@ -1,13 +1,13 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import Groq from "groq-sdk";
 import { Redis } from "@upstash/redis";
-import { analyzeWebsite } from "./analyze";
-import { parseAndValidateUrl } from "./_utils";
-import { captureWebsiteScreenshot } from "./screenshot";
-import { isAdminEmail, resolveAuthContext } from "./_auth";
-import { consumeDailyUsage, currentIstDateKey } from "./_rateLimit";
-import { appendUserHistory } from "./_history";
-import { analyzeContentWithFirecrawl, type FirecrawlSignals } from "./firecrawl";
+import { analyzeWebsite } from "./analyze.js";
+import { parseAndValidateUrl } from "./_utils.js";
+import { captureWebsiteScreenshot } from "./screenshot.js";
+import { isAdminEmail, resolveAuthContext } from "./_auth.js";
+import { consumeDailyUsage, currentIstDateKey } from "./_rateLimit.js";
+import { appendUserHistory } from "./_history.js";
+import { analyzeContentWithFirecrawl, type FirecrawlSignals } from "./firecrawl.js";
 
 const ROAST_V11_ENABLED = process.env.ROAST_V11_ENABLED !== "0";
 const PRO_TIER_ENABLED = process.env.PRO_TIER_ENABLED !== "0";
@@ -474,37 +474,37 @@ function sanitizeStructured(
 
   const evidence = Array.isArray(object.evidence)
     ? object.evidence
-        .map((item) => {
-          const entry = item as Record<string, unknown>;
-          return {
-            label: String(entry?.label || "").trim(),
-            value: String(entry?.value || "").trim(),
-            impact: sanitizeImpact(entry?.impact)
-          };
-        })
-        .filter((item) => item.label && item.value)
+      .map((item) => {
+        const entry = item as Record<string, unknown>;
+        return {
+          label: String(entry?.label || "").trim(),
+          value: String(entry?.value || "").trim(),
+          impact: sanitizeImpact(entry?.impact)
+        };
+      })
+      .filter((item) => item.label && item.value)
     : [];
 
   const fixes = Array.isArray(object.fixes)
     ? object.fixes
-        .map((item) => {
-          const entry = item as Record<string, unknown>;
-          return {
-            title: String(entry?.title || "").trim(),
-            why: String(entry?.why || "").trim(),
-            effort: sanitizeEffort(entry?.effort)
-          };
-        })
-        .filter((item) => item.title && item.why)
+      .map((item) => {
+        const entry = item as Record<string, unknown>;
+        return {
+          title: String(entry?.title || "").trim(),
+          why: String(entry?.why || "").trim(),
+          effort: sanitizeEffort(entry?.effort)
+        };
+      })
+      .filter((item) => item.title && item.why)
     : [];
 
   const normalizedBurns = burns.length
     ? burns.slice(0, 5)
     : [
-        `Performance ${metrics.performance}/100 means the first impression is slower than it should be.`,
-        `${designSignals.externalScriptCount} external scripts suggest too much code before user value appears.`,
-        `${designSignals.imagesWithoutAlt} images missing alt text makes accessibility feel optional when it should be core.`
-      ];
+      `Performance ${metrics.performance}/100 means the first impression is slower than it should be.`,
+      `${designSignals.externalScriptCount} external scripts suggest too much code before user value appears.`,
+      `${designSignals.imagesWithoutAlt} images missing alt text makes accessibility feel optional when it should be core.`
+    ];
 
   const normalizedEvidence = [...evidence, ...fallbackEvidence].slice(0, 5);
   const dedupFixes = [...fixes, ...fallbackFixes].filter(

@@ -2,7 +2,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { existsSync } from "node:fs";
 import puppeteer from "puppeteer-core";
 import type { Page } from "puppeteer-core";
-import { parseAndValidateUrl } from "./_utils";
+import { parseAndValidateUrl } from "./_utils.js";
 
 export const config = {
   maxDuration: 30

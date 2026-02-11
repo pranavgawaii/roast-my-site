@@ -1,4 +1,4 @@
-import { parseAndValidateUrl } from "./_utils";
+import { parseAndValidateUrl } from "./_utils.js";
 
 type MetricsSource = "firecrawl";
 
@@ -236,12 +236,12 @@ function buildMetrics(signals: {
   const seo = clamp(
     Math.round(
       92 -
-        titlePenalty -
-        descriptionPenalty -
-        headingPenalty -
-        hierarchyPenalty -
-        wordPenalty -
-        linkPenalty
+      titlePenalty -
+      descriptionPenalty -
+      headingPenalty -
+      hierarchyPenalty -
+      wordPenalty -
+      linkPenalty
     ),
     12,
     99

@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { getUserHistory } from "./_history";
-import { resolveAuthContext } from "./_auth";
+import { getUserHistory } from "./_history.js";
+import { resolveAuthContext } from "./_auth.js";
 
 function parseLimit(value: unknown) {
   const raw = Array.isArray(value) ? value[0] : value;

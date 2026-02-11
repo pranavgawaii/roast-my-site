@@ -6,7 +6,7 @@ import {
   listClerkUsers,
   resolveAuthContext,
   updateUserPublicMetadata
-} from "./_auth";
+} from "./_auth.js";
 
 type WaitlistAction = "approve" | "deny";
 
@@ -142,16 +142,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const patch =
         action === "approve"
           ? {
-              proApproved: true,
-              proWaitlistStatus: "approved",
-              proSince: nowIso,
-              proReviewedAt: nowIso
-            }
+            proApproved: true,
+            proWaitlistStatus: "approved",
+            proSince: nowIso,
+            proReviewedAt: nowIso
+          }
           : {
-              proApproved: false,
-              proWaitlistStatus: "denied",
-              proReviewedAt: nowIso
-            };
+            proApproved: false,
+            proWaitlistStatus: "denied",
+            proReviewedAt: nowIso
+          };
 
       const merged = await updateUserPublicMetadata({
         userId,

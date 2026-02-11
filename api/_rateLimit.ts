@@ -1,5 +1,5 @@
 import { Redis } from "@upstash/redis";
-import type { UserStatus } from "./_auth";
+import type { UserStatus } from "./_auth.js";
 
 const RATE_TTL_SECONDS = 60 * 60 * 48;
 

@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { resolveAuthContext, updateUserPublicMetadata } from "./_auth";
+import { resolveAuthContext, updateUserPublicMetadata } from "./_auth.js";
 
 const PRO_TIER_ENABLED = process.env.PRO_TIER_ENABLED !== "0";
 

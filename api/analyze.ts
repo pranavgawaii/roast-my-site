@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { Redis } from "@upstash/redis";
-import { checkReachable, parseAndValidateUrl } from "./_utils";
-import { currentIstDateKey } from "./_rateLimit";
+import { checkReachable, parseAndValidateUrl } from "./_utils.js";
+import { currentIstDateKey } from "./_rateLimit.js";
 
 const PAGE_SPEED_BASE =
   "https://www.googleapis.com/pagespeedonline/v5/runPagespeed";
@@ -182,12 +182,12 @@ function buildEstimatedMetrics(url: string, signals: DesignSignals): RoastMetric
   const performance = clamp(
     Math.round(
       86 -
-        fontPenalty -
-        scriptPenalty -
-        linkPenalty -
-        brokenPenalty -
-        imagePenalty * 0.5 +
-        jitter * 0.35
+      fontPenalty -
+      scriptPenalty -
+      linkPenalty -
+      brokenPenalty -
+      imagePenalty * 0.5 +
+      jitter * 0.35
     ),
     24,
     98
@@ -195,10 +195,10 @@ function buildEstimatedMetrics(url: string, signals: DesignSignals): RoastMetric
   const accessibility = clamp(
     Math.round(
       91 -
-        signals.imagesWithoutAlt * 3.4 -
-        fontPenalty * 0.35 -
-        brokenPenalty * 0.4 +
-        jitter * 0.25
+      signals.imagesWithoutAlt * 3.4 -
+      fontPenalty * 0.35 -
+      brokenPenalty * 0.4 +
+      jitter * 0.25
     ),
     20,
     99
@@ -228,9 +228,9 @@ function buildEstimatedMetrics(url: string, signals: DesignSignals): RoastMetric
     120 + Math.max(0, signals.externalScriptCount - 5) * 28 + (hash % 90);
   const clsValue = clamp(
     0.02 +
-      Math.max(0, signals.externalScriptCount - 5) * 0.008 +
-      (signals.imagesWithoutAlt > 8 ? 0.03 : 0) +
-      (hash % 8) * 0.01,
+    Math.max(0, signals.externalScriptCount - 5) * 0.008 +
+    (signals.imagesWithoutAlt > 8 ? 0.03 : 0) +
+    (hash % 8) * 0.01,
     0.01,
     0.42
   );

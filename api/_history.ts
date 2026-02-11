@@ -1,4 +1,4 @@
-import { getRedis } from "./_rateLimit";
+import { getRedis } from "./_rateLimit.js";
 
 const HISTORY_MAX_ITEMS = 50;
 const SUPABASE_TABLE = "roast_generations";
