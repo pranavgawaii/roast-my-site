@@ -237,7 +237,7 @@ export default function Home() {
       <main className="relative z-10">
         {showLaunchBanner ? (
           <section className="mx-auto mt-4 max-w-7xl px-4 md:px-8">
-            <div className="rounded-2xl border border-ember-300/25 bg-zinc-950/90 p-3 md:p-4">
+            <div className="rounded-2xl border border-[#ff7373]/25 bg-zinc-950/90 p-3 md:p-4">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <p className="text-sm text-zinc-200">
                   {launchMessaging.inAppBanner}
@@ -272,7 +272,7 @@ export default function Home() {
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:32px_32px]" />
             <motion.div
               aria-hidden
-              className="pointer-events-none absolute -right-12 -top-16 h-52 w-52 rounded-full bg-ember-300/10 blur-3xl"
+              className="pointer-events-none absolute -right-12 -top-16 h-52 w-52 rounded-full bg-[#ff7373]/10 blur-3xl"
               animate={{ scale: [1, 1.06, 1], opacity: [0.28, 0.45, 0.28] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             />
@@ -350,7 +350,7 @@ export default function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 + idx * 0.08, duration: 0.35 }}
                   >
-                    <item.icon className="h-4 w-4 text-ember-300" />
+                    <item.icon className="h-4 w-4 text-[#ff7373]" />
                     <p className="mt-2 text-[11px] uppercase tracking-[0.12em] text-zinc-500">
                       {item.label}
                     </p>
@@ -371,12 +371,12 @@ export default function Home() {
             className="relative overflow-hidden rounded-[30px] border border-white/10 bg-zinc-950/82 p-3 md:p-4"
           >
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(620px_circle_at_0%_0%,rgba(255,68,68,0.12),transparent_60%),radial-gradient(760px_circle_at_100%_0%,rgba(255,255,255,0.05),transparent_64%)]" />
-            <div className="pointer-events-none absolute right-12 top-10 h-28 w-28 rounded-full bg-ember-300/10 blur-3xl" />
+            <div className="pointer-events-none absolute right-12 top-10 h-28 w-28 rounded-full bg-[#ff7373]/10 blur-3xl" />
 
             <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/88">
               <div className="flex h-11 items-center gap-2 border-b border-white/10 bg-zinc-900/78 px-4">
-                <span className="h-3 w-3 rounded-full bg-ember-500/75" />
-                <span className="h-3 w-3 rounded-full bg-ember-300/70" />
+                <span className="h-3 w-3 rounded-full bg-[#ff3b3b]/75" />
+                <span className="h-3 w-3 rounded-full bg-[#ff7373]/70" />
                 <span className="h-3 w-3 rounded-full bg-zinc-500/65" />
                 <div className="ml-3 w-full rounded-md border border-zinc-700/70 bg-zinc-950/85 px-2 py-1 text-[11px] text-zinc-500">
                   https://roastmy.site/dashboard
@@ -393,7 +393,7 @@ export default function Home() {
                 >
                   <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
                     <p className="text-[11px] uppercase tracking-[0.14em] text-zinc-500">Live Roast Report</p>
-                    <span className="rounded-full border border-ember-300/35 bg-ember-300/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-ember-100">
+                    <span className="rounded-full border border-[#ff7373]/35 bg-[#ff7373]/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#ffd0d0]">
                       high signal
                     </span>
                   </div>
@@ -494,7 +494,7 @@ export default function Home() {
                 whileHover={{ y: -4 }}
               >
                 <Card className="h-full border-white/10 bg-zinc-950/55 p-6">
-                  <item.icon className="h-5 w-5 text-ember-300" />
+                  <item.icon className="h-5 w-5 text-[#ff7373]" />
                   <h3 className="mt-4 text-lg font-semibold text-white">{item.title}</h3>
                   <p className="mt-2 text-sm leading-7 text-zinc-400">{item.text}</p>
                 </Card>
@@ -519,7 +519,7 @@ export default function Home() {
                   className="w-80 flex-shrink-0 rounded-xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-md"
                 >
                   <div className="mb-3 flex items-center gap-2">
-                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-ember-400 text-[11px] font-bold text-zinc-900">
+                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#ff5656] text-[11px] font-bold text-zinc-900">
                       {item.initials}
                     </span>
                     <span className="text-sm font-medium text-zinc-200">{item.name}</span>
@@ -552,10 +552,10 @@ export default function Home() {
                 transition={{ delay: idx * 0.08 }}
                 className="group rounded-2xl border border-white/10 bg-white/[0.03] p-7"
               >
-                <step.icon className="h-5 w-5 text-ember-300" />
+                <step.icon className="h-5 w-5 text-[#ff7373]" />
                 <h3 className="mt-4 text-xl font-semibold text-white">{step.title}</h3>
                 <p className="mt-2 text-sm leading-7 text-zinc-400">{step.text}</p>
-                <span className="mt-5 block h-1 w-0 rounded-full bg-ember-400 transition-all duration-500 group-hover:w-full" />
+                <span className="mt-5 block h-1 w-0 rounded-full bg-[#ff5656] transition-all duration-500 group-hover:w-full" />
               </motion.article>
             ))}
           </div>
@@ -586,14 +586,14 @@ export default function Home() {
                     transition={{ delay: isFree ? 0.02 : 0.1, duration: 0.4 }}
                   >
                     <Card
-                      className={`p-6 ${isFree ? "border-ember-400/35 bg-ember-400/10" : "border-white/10 bg-zinc-950/60"}`}
+                      className={`p-6 ${isFree ? "border-[#ff5656]/35 bg-[#ff5656]/10" : "border-white/10 bg-zinc-950/60"}`}
                     >
                       <div className="flex items-center justify-between gap-3">
                         <p className="text-xs uppercase tracking-widest text-zinc-500">
                           {plan.name}
                         </p>
                         {isFree ? (
-                          <span className="rounded-full border border-ember-300/40 bg-ember-300/12 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-ember-100">
+                          <span className="rounded-full border border-[#ff7373]/40 bg-[#ff7373]/12 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#ffd0d0]">
                             Current
                           </span>
                         ) : null}
@@ -603,7 +603,7 @@ export default function Home() {
                       <ul className="mt-5 space-y-2 text-sm text-zinc-300">
                         {plan.points.map((point) => (
                           <li key={point} className="flex items-center gap-2">
-                            <span className="h-1.5 w-1.5 rounded-full bg-ember-300" />
+                            <span className="h-1.5 w-1.5 rounded-full bg-[#ff7373]" />
                             {point}
                           </li>
                         ))}
@@ -631,7 +631,7 @@ export default function Home() {
                   <SignedOut>
                     <Link
                       to="/sign-up"
-                      className="inline-flex items-center gap-2 rounded-xl bg-ember-500 px-6 py-3 text-sm font-semibold text-zinc-950 ring-1 ring-ember-400/70 transition hover:bg-ember-400"
+                      className="inline-flex items-center gap-2 rounded-xl bg-[#ff3b3b] px-6 py-3 text-sm font-semibold text-zinc-950 ring-1 ring-[#ff5656]/70 transition hover:bg-[#ff5656]"
                     >
                       Start Free
                       <ArrowRight className="h-4 w-4" />
@@ -640,7 +640,7 @@ export default function Home() {
                   <SignedIn>
                     <Link
                       to="/dashboard"
-                      className="inline-flex items-center gap-2 rounded-xl bg-ember-500 px-6 py-3 text-sm font-semibold text-zinc-950 ring-1 ring-ember-400/70 transition hover:bg-ember-400"
+                      className="inline-flex items-center gap-2 rounded-xl bg-[#ff3b3b] px-6 py-3 text-sm font-semibold text-zinc-950 ring-1 ring-[#ff5656]/70 transition hover:bg-[#ff5656]"
                     >
                       Go to Dashboard
                       <ArrowRight className="h-4 w-4" />

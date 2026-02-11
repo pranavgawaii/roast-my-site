@@ -55,7 +55,7 @@ export function Footer() {
               href="https://pranavx.in"
               target="_blank"
               rel="noreferrer"
-              className="font-semibold text-ember-300 hover:text-ember-200"
+              className="font-semibold text-[#ff7373] hover:text-[#ffd0d0]"
             >
               pranavgawai
             </a>
