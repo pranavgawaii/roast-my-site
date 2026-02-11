@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
+import { IS_CLERK_CONFIGURED } from "../shared/lib/clerk";
 import {
   ArrowRight,
   BadgeCheck,
@@ -190,38 +191,44 @@ export default function Home() {
             </nav>
 
             <div className="flex items-center gap-2 md:gap-3">
-              <SignedOut>
-                <Link
-                  to="/sign-in"
-                  className="inline-flex rounded-lg border border-zinc-700 bg-zinc-900 px-2.5 py-1.5 text-[11px] font-semibold text-zinc-200 transition hover:border-zinc-600 hover:text-white sm:px-3 sm:py-2 sm:text-xs"
-                >
-                  Log In
-                </Link>
-                <Link
-                  to="/sign-up"
-                  className="inline-flex rounded-lg bg-[#ff4d22] px-2.5 py-1.5 text-[11px] font-bold text-black transition hover:bg-[#ff5a2f] sm:px-4 sm:py-2 sm:text-xs"
-                >
-                  Get Started
-                </Link>
-              </SignedOut>
+              {IS_CLERK_CONFIGURED ? (
+                <SignedOut>
+                  <Link
+                    to="/sign-in"
+                    className="inline-flex rounded-lg border border-zinc-700 bg-zinc-900 px-2.5 py-1.5 text-[11px] font-semibold text-zinc-200 transition hover:border-zinc-600 hover:text-white sm:px-3 sm:py-2 sm:text-xs"
+                  >
+                    Log In
+                  </Link>
+                  <Link
+                    to="/sign-up"
+                    className="inline-flex rounded-lg bg-[#ff4d22] px-2.5 py-1.5 text-[11px] font-bold text-black transition hover:bg-[#ff5a2f] sm:px-4 sm:py-2 sm:text-xs"
+                  >
+                    Get Started
+                  </Link>
+                </SignedOut>
+              ) : (
+                <span className="text-[10px] text-zinc-500 italic">Auth Setup Required</span>
+              )}
 
-              <SignedIn>
-                <Link
-                  to="/dashboard"
-                  className="hidden items-center gap-1 rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-xs font-semibold text-zinc-200 transition hover:border-zinc-600 hover:text-white sm:inline-flex"
-                >
-                  <LayoutDashboard className="h-3.5 w-3.5" />
-                  Dashboard
-                </Link>
-                <UserButton
-                  afterSignOutUrl="/"
-                  appearance={{
-                    elements: {
-                      userButtonAvatarBox: "ring-2 ring-zinc-600"
-                    }
-                  }}
-                />
-              </SignedIn>
+              {IS_CLERK_CONFIGURED && (
+                <SignedIn>
+                  <Link
+                    to="/dashboard"
+                    className="hidden items-center gap-1 rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-xs font-semibold text-zinc-200 transition hover:border-zinc-600 hover:text-white sm:inline-flex"
+                  >
+                    <LayoutDashboard className="h-3.5 w-3.5" />
+                    Dashboard
+                  </Link>
+                  <UserButton
+                    afterSignOutUrl="/"
+                    appearance={{
+                      elements: {
+                        userButtonAvatarBox: "ring-2 ring-zinc-600"
+                      }
+                    }}
+                  />
+                </SignedIn>
+              )}
             </div>
           </div>
         </div>
@@ -307,20 +314,24 @@ export default function Home() {
                 transition={{ delay: 0.2, duration: 0.4 }}
                 className="mt-6 flex flex-wrap items-center justify-center gap-3"
               >
-                <SignedOut>
-                  <p className="inline-flex items-center rounded-lg border border-zinc-700 bg-zinc-900/80 px-3 py-2 text-xs text-zinc-300">
-                    Login from navbar to start your first roast.
-                  </p>
-                </SignedOut>
-                <SignedIn>
-                  <Link
-                    to="/dashboard"
-                    className="inline-flex items-center gap-2 rounded-xl bg-zinc-100 px-5 py-2.5 text-sm font-semibold text-zinc-900 transition hover:bg-white"
-                  >
-                    Open Dashboard
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </SignedIn>
+                {IS_CLERK_CONFIGURED && (
+                  <>
+                    <SignedOut>
+                      <p className="inline-flex items-center rounded-lg border border-zinc-700 bg-zinc-900/80 px-3 py-2 text-xs text-zinc-300">
+                        Login from navbar to start your first roast.
+                      </p>
+                    </SignedOut>
+                    <SignedIn>
+                      <Link
+                        to="/dashboard"
+                        className="inline-flex items-center gap-2 rounded-xl bg-zinc-100 px-5 py-2.5 text-sm font-semibold text-zinc-900 transition hover:bg-white"
+                      >
+                        Open Dashboard
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </SignedIn>
+                  </>
+                )}
               </motion.div>
             </div>
 
@@ -615,24 +626,32 @@ export default function Home() {
               feedback into better conversion decisions.
             </p>
             <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-              <SignedOut>
-                <Link
-                  to="/sign-up"
-                  className="inline-flex items-center gap-2 rounded-xl bg-ember-500 px-6 py-3 text-sm font-semibold text-zinc-950 ring-1 ring-ember-400/70 transition hover:bg-ember-400"
-                >
-                  Start Free
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </SignedOut>
-              <SignedIn>
-                <Link
-                  to="/dashboard"
-                  className="inline-flex items-center gap-2 rounded-xl bg-ember-500 px-6 py-3 text-sm font-semibold text-zinc-950 ring-1 ring-ember-400/70 transition hover:bg-ember-400"
-                >
-                  Go to Dashboard
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </SignedIn>
+              {IS_CLERK_CONFIGURED ? (
+                <>
+                  <SignedOut>
+                    <Link
+                      to="/sign-up"
+                      className="inline-flex items-center gap-2 rounded-xl bg-ember-500 px-6 py-3 text-sm font-semibold text-zinc-950 ring-1 ring-ember-400/70 transition hover:bg-ember-400"
+                    >
+                      Start Free
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </SignedOut>
+                  <SignedIn>
+                    <Link
+                      to="/dashboard"
+                      className="inline-flex items-center gap-2 rounded-xl bg-ember-500 px-6 py-3 text-sm font-semibold text-zinc-950 ring-1 ring-ember-400/70 transition hover:bg-ember-400"
+                    >
+                      Go to Dashboard
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </SignedIn>
+                </>
+              ) : (
+                <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-4">
+                  <p className="text-sm text-zinc-400 font-medium">Authentication is currently disabled due to missing configuration.</p>
+                </div>
+              )}
             </div>
           </Card>
         </section>

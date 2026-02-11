@@ -1,11 +1,13 @@
 import type { PropsWithChildren } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "@clerk/clerk-react";
+import { IS_CLERK_CONFIGURED } from "../../shared/lib/clerk";
 import { Card } from "../../shared/ui/Card";
 import { LoadingSpinner } from "../../shared/ui/LoadingSpinner";
 
 export function ProtectedRoute({ children }: PropsWithChildren) {
-  const { isLoaded, isSignedIn } = useAuth();
+  const auth = IS_CLERK_CONFIGURED ? useAuth() : { isLoaded: true, isSignedIn: false };
+  const { isLoaded, isSignedIn } = auth;
   const location = useLocation();
 
   if (!isLoaded) {
